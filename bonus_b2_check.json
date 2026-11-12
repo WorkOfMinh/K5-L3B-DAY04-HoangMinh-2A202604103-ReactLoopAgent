@@ -1,0 +1,183 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.1-flash-lite",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B2",
+      "question": "Tra timeline Vercel incident sps6n39gm4sg: thông báo nào nói các build GitHub-connected vẫn lỗi do upstream? Theo dữ liệu bạn đọc, có thể xác nhận sự cố đó đang xảy ra không? Dẫn nguồn.",
+      "expected": "Incident resolved. Phải xem nhiều trang timeline: update offset 3 ngày 2026-10-12 16:10 UTC nói GitHub-connected builds vẫn lỗi do upstream GitHub và dẫn GitHub status; đây là incident lịch sử không khẳng định đang diễn ra; cite Vercel.",
+      "scenario": "normal",
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.1-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu từ timeline của sự cố Vercel `sps6n39gm4sg`, thông tin chi tiết như sau:\n\n**1. Thông báo về việc build GitHub-connected lỗi do upstream:**\nThông báo xác nhận vấn đề này được đưa ra lúc **2026-10-12 16:10:48 UTC**:\n> \"We are continuing to work on a fix. Due to an upstream incident at GitHub (https://www.githubstatus.com/incidents/93njd414rpbx), some builds and deployments for GitHub-connected projects are still failing. We will provide additional updates as they become available.\"\n\n**2. Xác nhận trạng thái sự cố:**\nSự cố này **không còn xảy ra**.\n*   **Trạng thái hiện tại:** Đã giải quyết (Resolved).\n*   **Thời gian kết thúc:** Sự cố đã được đánh dấu là \"resolved\" vào lúc **2026-10-12 20:11:12 UTC**.\n\n**Nguồn:** [https://stspg.io/cfrfjg8fqxfr](https://stspg.io/cfrfjg8fqxfr)",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls"
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_incident_details",
+            "arguments": {
+              "provider": "vercel",
+              "incident_id": "sps6n39gm4sg"
+            },
+            "result": {
+              "ok": true,
+              "provider": "vercel",
+              "id": "sps6n39gm4sg",
+              "name": "Increased build and deployment failures",
+              "status": "resolved",
+              "created_at": "2026-10-12T13:35:07.398Z",
+              "updated_at": "2026-10-12T20:11:12.802Z",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "components": [
+                "Builds",
+                "Git Integrations"
+              ],
+              "updates": [
+                {
+                  "status": "resolved",
+                  "created_at": "2026-10-12T20:11:12.778Z",
+                  "body": "This incident has been resolved.",
+                  "truncated": false
+                },
+                {
+                  "status": "monitoring",
+                  "created_at": "2026-10-12T19:56:56.002Z",
+                  "body": "The backlog of deployment events has been processed. We will continue to monitor and provide additional updates as they become available.",
+                  "truncated": false
+                }
+              ],
+              "offset": 0,
+              "total_updates": 7,
+              "next_offset": 2,
+              "url": "https://stspg.io/cfrfjg8fqxfr"
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls"
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_incident_details",
+            "arguments": {
+              "provider": "vercel",
+              "limit": 3,
+              "incident_id": "sps6n39gm4sg",
+              "offset": 2
+            },
+            "result": {
+              "ok": true,
+              "provider": "vercel",
+              "id": "sps6n39gm4sg",
+              "name": "Increased build and deployment failures",
+              "status": "resolved",
+              "created_at": "2026-10-12T13:35:07.398Z",
+              "updated_at": "2026-10-12T20:11:12.802Z",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "components": [
+                "Builds",
+                "Git Integrations"
+              ],
+              "updates": [
+                {
+                  "status": "identified",
+                  "created_at": "2026-10-12T18:33:36.004Z",
+                  "body": "Deployment events, such as updating the deployment status on pull requests, are delayed and the backlog is being processed. We will provide additional updates as they become available.",
+                  "truncated": false
+                },
+                {
+                  "status": "identified",
+                  "created_at": "2026-10-12T16:10:48.923Z",
+                  "body": "We are continuing to work on a fix. Due to an upstream incident at GitHub (https://www.githubstatus.com/incidents/93njd414rpbx), some builds and deployments for GitHub-connected projects are still failing. We will provide additional updates as they become available.",
+                  "truncated": false
+                },
+                {
+                  "status": "identified",
+                  "created_at": "2026-10-12T14:57:41.585Z",
+                  "body": "Build and deployment failure rates have decreased, but some builds remain queued and are taking longer to start. We are continuing to work on a fix. We will provide additional updates as they become available.",
+                  "truncated": false
+                }
+              ],
+              "offset": 2,
+              "total_updates": 7,
+              "next_offset": 5,
+              "url": "https://stspg.io/cfrfjg8fqxfr"
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "stop"
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 34,
+            "prompt_tokens": 652,
+            "total_tokens": 686
+          },
+          {
+            "completion_tokens": 42,
+            "prompt_tokens": 1021,
+            "total_tokens": 1063
+          },
+          {
+            "completion_tokens": 266,
+            "prompt_tokens": 1548,
+            "total_tokens": 1814
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Câu trả lời chính xác, trích dẫn đúng thông tin từ các bước truy vấn (offset 2) và xác nhận rõ ràng tình trạng đã giải quyết của sự cố.",
+        "improvement": "Không cần cải thiện.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 2,
+          "tool_steps": 2
+        },
+        "judge_usage": {
+          "completion_tokens": 80,
+          "prompt_tokens": 1754,
+          "total_tokens": 1834
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

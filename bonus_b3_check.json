@@ -1,0 +1,176 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 1,
+    "unscored_cases": 0,
+    "score_0_100": 100.0,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "gemini",
+    "model": "gemini-3.1-flash-lite",
+    "judge_provider": "gemini",
+    "judge_model": "gemini-3.1-flash-lite",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B3",
+      "question": "Kiểm tra trạng thái Vercel hiện tại theo snapshot. Nếu gặp rate limit, thử lại có giới hạn và cho biết kết quả cùng nguồn.",
+      "expected": "Lần đầu get_vercel_status trả 429 giả lập, lần sau thành công none/All Systems Operational. Nêu timestamp và nguồn; không coi 429 là outage Vercel.",
+      "scenario": "rate_limit_once",
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "judge_provider": "gemini",
+      "judge_model": "gemini-3.1-flash-lite",
+      "result": {
+        "status": "completed",
+        "answer": "Dựa trên dữ liệu thu thập được từ Vercel Status, trạng thái hiện tại của Vercel như sau:\n\n*   **Trạng thái hệ thống:** Tất cả các hệ thống đang hoạt động bình thường (\"All Systems Operational\").\n*   **Sự cố gần đây:** Không có sự cố nào đang diễn ra. Các incident liệt kê trong snapshot đều đã ở trạng thái **\"resolved\"** (đã giải quyết).\n    *   Sự cố gần nhất đã được giải quyết vào ngày 05/11/2026 (Build delays and degraded Vercel Dashboard performance).\n*   **Nguồn:** [https://www.vercel-status.com](https://www.vercel-status.com)\n\n*Lưu ý: Yêu cầu ban đầu bị giới hạn bởi lỗi 429 (rate limit) trong lần thử đầu tiên, nhưng sau khi thực hiện lại ngay lập tức, dữ liệu đã được truy xuất thành công.*",
+        "trace": [
+          {
+            "event": "model",
+            "step": 1,
+            "finish": "tool_calls"
+          },
+          {
+            "event": "tool",
+            "step": 1,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "ok": false,
+              "error": "RATE_LIMITED",
+              "http_status": 429,
+              "retry_after_seconds": 0,
+              "retriable": true,
+              "message": "429 giả lập; retry có giới hạn."
+            }
+          },
+          {
+            "event": "model",
+            "step": 2,
+            "finish": "tool_calls"
+          },
+          {
+            "event": "tool",
+            "step": 2,
+            "name": "get_vercel_status",
+            "arguments": {},
+            "result": {
+              "provider": "vercel",
+              "captured_at": "2026-11-10T14:45:50.457875+00:00",
+              "overall": {
+                "indicator": "none",
+                "description": "All Systems Operational"
+              },
+              "components": [],
+              "incidents": [
+                {
+                  "id": "w661l7k3kf4p",
+                  "name": "Build delays and degraded Vercel Dashboard performance",
+                  "status": "resolved",
+                  "updated_at": "2026-11-05T18:50:23.139Z"
+                },
+                {
+                  "id": "4lgcbsr7l8xn",
+                  "name": "Delays in Logs and Observability data",
+                  "status": "resolved",
+                  "updated_at": "2026-10-23T17:32:46.920Z"
+                },
+                {
+                  "id": "sps6n39gm4sg",
+                  "name": "Increased build and deployment failures",
+                  "status": "resolved",
+                  "updated_at": "2026-10-12T20:11:12.802Z"
+                },
+                {
+                  "id": "bpzq72pgngc7",
+                  "name": "Delays in Drains, Observability, and Workflow in Washington (iad1)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-10T01:37:00.920Z"
+                },
+                {
+                  "id": "1dp8c0nfchtg",
+                  "name": "Vercel Auth login failures for pages with Deployment Protection enabled",
+                  "status": "resolved",
+                  "updated_at": "2026-10-06T16:26:49.403Z"
+                },
+                {
+                  "id": "xr8lx0kncx0g",
+                  "name": "Elevated Sandbox error rates in Paris (cdg1)",
+                  "status": "resolved",
+                  "updated_at": "2026-10-06T09:36:55.249Z"
+                },
+                {
+                  "id": "yy1sm6x5l83q",
+                  "name": "Build failures and 500 errors for functions using Edge runtime",
+                  "status": "resolved",
+                  "updated_at": "2026-09-28T14:11:29.973Z"
+                },
+                {
+                  "id": "5c1lswm68bkg",
+                  "name": "Deployment stuck in initializing state",
+                  "status": "resolved",
+                  "updated_at": "2026-09-18T22:31:22.780Z"
+                }
+              ],
+              "match_count": 50,
+              "returned": 8,
+              "note": "Chỉ tìm trong response incidents đã lấy; danh sách trả về tối đa 8 mục.",
+              "source": "https://www.vercel-status.com"
+            }
+          },
+          {
+            "event": "model",
+            "step": 3,
+            "finish": "stop"
+          }
+        ],
+        "usage": [
+          {
+            "completion_tokens": 12,
+            "prompt_tokens": 631,
+            "total_tokens": 643
+          },
+          {
+            "completion_tokens": 12,
+            "prompt_tokens": 714,
+            "total_tokens": 726
+          },
+          {
+            "completion_tokens": 205,
+            "prompt_tokens": 1392,
+            "total_tokens": 1597
+          }
+        ]
+      },
+      "grade": {
+        "score": 100,
+        "raw_judge_score": 100,
+        "dimensions": {
+          "factuality": 40,
+          "completeness": 25,
+          "evidence": 20,
+          "boundaries": 15
+        },
+        "status": "scored",
+        "reason": "Agent đã thực hiện đúng yêu cầu xử lý lỗi 429, thử lại thành công và trích xuất thông tin chính xác từ trace. Agent cũng đã làm rõ việc 429 không phải là lỗi hệ thống Vercel.",
+        "improvement": "Không có đề xuất cải thiện, agent đã làm rất tốt.",
+        "mechanical": {
+          "violations": [],
+          "score_cap": 100,
+          "tool_calls": 2,
+          "tool_steps": 2
+        },
+        "judge_usage": {
+          "completion_tokens": 102,
+          "prompt_tokens": 1511,
+          "total_tokens": 1613
+        },
+        "judge_trace_truncated": false
+      }
+    }
+  ]
+}

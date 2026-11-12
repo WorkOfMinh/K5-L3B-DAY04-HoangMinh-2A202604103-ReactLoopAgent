@@ -1,0 +1,61 @@
+{
+  "summary": {
+    "total_cases": 1,
+    "scored_cases": 0,
+    "unscored_cases": 1,
+    "score_0_100": null,
+    "partial_mean_0_100": null,
+    "bonus_points_0_15": null
+  },
+  "config": {
+    "provider": "openai",
+    "model": "gpt-4o",
+    "judge_provider": "openai",
+    "judge_model": "gpt-4o",
+    "max_steps": 16,
+    "dataset": "bonus"
+  },
+  "cases": [
+    {
+      "id": "B1",
+      "question": "Tổng hợp trạng thái GitHub, Cloudflare, Vercel, npm và DigitalOcean: mỗi nhà cung cấp đang báo gì trong snapshot, thời điểm dữ liệu, và nguồn? Đừng suy ra nguyên nhân liên quan giữa các bên.",
+      "expected": "Truy vấn cả năm tools status; GitHub, Vercel, npm và DigitalOcean indicator none; Cloudflare major trong snapshot. Nêu timestamp riêng và nguồn tương ứng, không kết luận nhân quả.",
+      "scenario": "normal",
+      "provider": "openai",
+      "model": "gpt-4o",
+      "judge_provider": "openai",
+      "judge_model": "gpt-4o",
+      "result": {
+        "status": "error",
+        "answer": "",
+        "trace": [
+          {
+            "event": "provider_error",
+            "step": 1,
+            "error": "Provider call failed: RuntimeError"
+          }
+        ],
+        "usage": [],
+        "error": "Provider call failed: RuntimeError"
+      },
+      "grade": {
+        "score": null,
+        "status": "unscored",
+        "reason": "Run lỗi; chưa phân biệt được lỗi agent và hạ tầng.",
+        "mechanical": {
+          "violations": [
+            "Chưa gọi tool cần thiết: get_github_status",
+            "Chưa gọi tool cần thiết: get_cloudflare_status",
+            "Chưa gọi tool cần thiết: get_vercel_status",
+            "Chưa gọi tool cần thiết: get_npm_status",
+            "Chưa gọi tool cần thiết: get_digitalocean_status"
+          ],
+          "score_cap": 50,
+          "tool_calls": 0,
+          "tool_steps": 0
+        },
+        "judge_usage": {}
+      }
+    }
+  ]
+}
